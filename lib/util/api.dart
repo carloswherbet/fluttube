@@ -1,9 +1,10 @@
 import 'dart:convert';
 
 import 'package:fluttube/models/video.dart';
+import 'package:fluttube/util/config.dart';
 import 'package:http/http.dart' as http;
 
-const API_KEY = 'AIzaSyD_49siO5A1XOKP5F7tbVZnHe5axfiWmv0';
+const API_KEY = API_KEY_SECRET;
 
 class Api {
   String _search;
