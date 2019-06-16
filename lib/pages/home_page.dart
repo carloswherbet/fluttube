@@ -1,13 +1,18 @@
 import 'package:bloc_pattern/bloc_pattern.dart';
 import 'package:flutter/material.dart';
+import 'package:fluttube/blocs/favs_bloc.dart';
 import 'package:fluttube/blocs/videos_bloc.dart';
 import 'package:fluttube/delegates/data_search.dart';
+import 'package:fluttube/models/video.dart';
+import 'package:fluttube/pages/my_favorites.dart';
 import 'package:fluttube/widgets/video_tile.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final _bloc = BlocProvider.of<VideosBloc>(context);
+    final _favsBloc = BlocProvider.of<FavsBloc>(context);
 
     return Scaffold(
       backgroundColor: Colors.black87,
@@ -21,11 +26,22 @@ class HomePage extends StatelessWidget {
         actions: <Widget>[
           Align(
             alignment: Alignment.center,
-            child: Text('0'),
+            child: StreamBuilder<Map<String, Video>>(
+              stream: _favsBloc.outFavs,
+              builder: (context, snapshot) {
+                if (snapshot.hasData)
+                  return Text('${snapshot.data.length}');
+                else
+                  Container();
+              },
+            ),
           ),
           IconButton(
-            icon: Icon(Icons.star),
-            onPressed: () {},
+            icon: Icon(FontAwesomeIcons.solidHeart),
+            onPressed: () {
+              Navigator.of(context)
+                  .push(MaterialPageRoute(builder: (_) => MyFavorites()));
+            },
           ),
           IconButton(
             icon: Icon(Icons.search),

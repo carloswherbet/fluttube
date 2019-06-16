@@ -15,6 +15,9 @@ class MyApp extends StatelessWidget {
         bloc: FavsBloc(),
         child: MaterialApp(
           debugShowCheckedModeBanner: false,
+          theme: ThemeData(
+            primarySwatch: Colors.red,
+          ),
           home: HomePage(),
         ),
       ),
